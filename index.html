@@ -3,11 +3,424 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redirecting to Dashboard</title>
-<meta http-equiv="refresh" content="0; url=./monsoon_drought_analysis_dashboard.html">
-<link rel="canonical" href="./monsoon_drought_analysis_dashboard.html">
+<title>EGU 2026 Presentation | Monsoon Drought and Urban Heat</title>
+<style>
+  :root {
+    --bg: #f7f4ee;
+    --surface: #ffffff;
+    --ink: #1f2523;
+    --muted: #65706b;
+    --line: #d7d2c8;
+    --green: #1f7a5c;
+    --blue: #2563a8;
+    --ochre: #9a6a18;
+    --soft-green: #e9f3ee;
+    --soft-blue: #eaf1f9;
+    --soft-ochre: #f5ecd9;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  a {
+    color: var(--blue);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  header {
+    background: #f3efe6;
+    border-bottom: 1px solid var(--line);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 14px 22px;
+  }
+
+  .brand {
+    font-weight: 800;
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    font-size: 0.92rem;
+    padding: 6px 9px;
+  }
+
+  .hero {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 48px 22px 34px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+    gap: 34px;
+    align-items: center;
+  }
+
+  .eyebrow {
+    color: var(--green);
+    font-weight: 750;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 4.2rem);
+    line-height: 1.02;
+    letter-spacing: 0;
+    max-width: 820px;
+  }
+
+  .lead {
+    color: var(--muted);
+    max-width: 760px;
+    font-size: 1.08rem;
+    margin: 18px 0 0;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 9px 14px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    font-weight: 700;
+    border-radius: 6px;
+  }
+
+  .button.primary {
+    background: var(--green);
+    border-color: var(--green);
+    color: #ffffff;
+  }
+
+  .poster-preview {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .poster-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 22px 56px;
+  }
+
+  section {
+    padding: 36px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  h2 {
+    margin: 0 0 16px;
+    font-size: clamp(1.35rem, 3vw, 2.05rem);
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+
+  h3 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+  }
+
+  p {
+    margin: 0 0 14px;
+  }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 34px;
+  }
+
+  .section-label {
+    color: var(--muted);
+    font-weight: 750;
+  }
+
+  .content {
+    max-width: 820px;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .fact,
+  .resource {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .fact strong {
+    display: block;
+    font-size: 1.2rem;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+
+  .visual {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 8px;
+    padding: 14px;
+    margin-top: 18px;
+  }
+
+  .visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .result-links,
+  .resources {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .result-link {
+    display: block;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    padding: 16px;
+    background: var(--soft-blue);
+    color: var(--ink);
+  }
+
+  .result-link:nth-child(2) {
+    background: var(--soft-green);
+  }
+
+  .result-link strong,
+  .resource strong {
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .discussion-list,
+  .policy-list {
+    padding-left: 20px;
+    margin: 14px 0 0;
+  }
+
+  .discussion-list li,
+  .policy-list li {
+    margin-bottom: 9px;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    padding: 22px;
+    text-align: center;
+  }
+
+  @media (max-width: 860px) {
+    nav {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .nav-links {
+      justify-content: flex-start;
+    }
+
+    .hero,
+    .section-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero {
+      padding-top: 34px;
+    }
+
+    .facts,
+    .result-links,
+    .resources {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
 </head>
 <body>
-<p>Redirecting to <a href="./monsoon_drought_analysis_dashboard.html">the dashboard</a>...</p>
+<header>
+  <nav aria-label="Presentation sections">
+    <a class="brand" href="#top">EGU 2026</a>
+    <div class="nav-links">
+      <a href="#introduction">Introduction</a>
+      <a href="#study-area">Study Area</a>
+      <a href="#methodology">Methodology</a>
+      <a href="#results">Results</a>
+      <a href="#discussion">Discussion</a>
+      <a href="#policy">Policy</a>
+    </div>
+  </nav>
+
+  <div class="hero" id="top">
+    <div>
+      <p class="eyebrow">EGU General Assembly 2026 presentation archive</p>
+      <h1>Monsoon Drought, Urban Heat, and Vulnerability in Kathmandu Valley</h1>
+      <p class="lead">A structured public page for the presentation materials, linking the analytical dashboard, methodology flowchart, and policy implications in one place.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="monsoon_drought_analysis_dashboard.html">Open Results Dashboard</a>
+        <a class="button" href="#methodology">View Methodology</a>
+      </div>
+    </div>
+    <figure class="poster-preview" aria-label="EGU presentation preview image">
+      <img src="methodology_flowchart_poster.svg" alt="Methodology flowchart for drought, heat, and vulnerability analysis">
+    </figure>
+  </div>
+</header>
+
+<main>
+  <section id="introduction">
+    <div class="section-grid">
+      <div class="section-label">01 / Introduction</div>
+      <div class="content">
+        <h2>Why monsoon drought matters for growing cities</h2>
+        <p>This presentation organizes the analysis of monsoon-season drought conditions and their relationship with urban heat exposure in Kathmandu Valley. The work connects hydroclimatic drought indicators, urban expansion, and settlement-level vulnerability to support clearer planning decisions.</p>
+        <p>The page is designed as a permanent, shareable web archive for the EGU presentation so collaborators, reviewers, and interested readers can access the figures and interactive outputs directly from GitHub.</p>
+        <div class="facts">
+          <div class="fact"><strong>1980-2020</strong>Monsoon precipitation analysis period</div>
+          <div class="fact"><strong>SPI-3</strong>Drought identification metric</div>
+          <div class="fact"><strong>Kathmandu Valley</strong>Urban climate risk focus</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="study-area">
+    <div class="section-grid">
+      <div class="section-label">02 / Study Area</div>
+      <div class="content">
+        <h2>Kathmandu Valley as the urban risk landscape</h2>
+        <p>The study area centers on Kathmandu Valley, where dense urban growth, changing land cover, and climate variability intersect. GIS resources and poster source files can be stored alongside this site in the repository so the presentation remains reproducible and easy to share.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="methodology">
+    <div class="section-grid">
+      <div class="section-label">03 / Methodology Adopted</div>
+      <div class="content">
+        <h2>Workflow from drought identification to vulnerability synthesis</h2>
+        <p>The methodology follows a stepwise workflow: identify monsoon drought using precipitation-derived SPI-3, connect drought years with urban heat and land-surface signals, and synthesize the results for risk interpretation.</p>
+        <div class="visual">
+          <img src="methodology_flowchart_poster.svg" alt="Methodology flowchart for drought, heat, and vulnerability analysis">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="results">
+    <div class="section-grid">
+      <div class="section-label">04 / Results</div>
+      <div class="content">
+        <h2>Interactive dashboards and analytical outputs</h2>
+        <p>The main results dashboard presents the monsoon drought analysis in an interactive HTML format.</p>
+        <div class="result-links">
+          <a class="result-link" href="monsoon_drought_analysis_dashboard.html"><strong>Monsoon Drought Analysis Dashboard</strong>Open the primary results page.</a>
+          <a class="result-link" href="https://github.com/prarocks/EGU-26"><strong>GitHub Repository</strong>View and manage the presentation archive.</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="discussion">
+    <div class="section-grid">
+      <div class="section-label">05 / Discussion</div>
+      <div class="content">
+        <h2>Interpreting drought-heat relationships in an urbanizing valley</h2>
+        <p>The discussion links the analytical findings with the broader urban climate context. The key interpretation is that monsoon drought should not be treated only as a rainfall anomaly; in dense and expanding urban landscapes it can amplify heat exposure, water stress, and uneven vulnerability.</p>
+        <ul class="discussion-list">
+          <li>Drought years provide a useful lens for comparing climate stress with urban land-surface response.</li>
+          <li>Spatial patterns help identify where planning, green infrastructure, and water management interventions may be most urgent.</li>
+          <li>Dashboard-based presentation makes the analysis easier to inspect, update, and share beyond the conference poster.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="policy">
+    <div class="section-grid">
+      <div class="section-label">06 / Policy Implementations</div>
+      <div class="content">
+        <h2>Planning responses for heat and drought resilience</h2>
+        <p>Policy implementation should connect drought monitoring with urban planning decisions, especially where rapid land-cover change increases surface heat exposure and water stress.</p>
+        <ul class="policy-list">
+          <li>Integrate drought indicators into municipal heat-risk and water-security planning.</li>
+          <li>Prioritize urban greening, permeable surfaces, and open-space protection in high-exposure neighborhoods.</li>
+          <li>Use spatial dashboards as living decision-support tools for agencies, researchers, and local planners.</li>
+        </ul>
+        <div class="visual">
+          <img src="policy_implications.svg" alt="Policy implications for managing urban heat and drought risk">
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Presentation materials for EGU 2026. Hosted from the GitHub repository <a href="https://github.com/prarocks/EGU-26">prarocks/EGU-26</a>.</p>
+</footer>
 </body>
 </html>

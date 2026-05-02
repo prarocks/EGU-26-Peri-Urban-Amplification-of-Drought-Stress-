@@ -1,0 +1,72 @@
+<svg width="800" height="700" viewBox="0 0 800 700" xmlns="http://www.w3.org/2000/svg">
+
+  <style>
+    .box { fill:#f5f0e6; stroke:#d8cbb3; stroke-width:1.5; rx:14; }
+    .green { fill:#e6f2ea; stroke:#b7d7c5; }
+    .blue { fill:#e8eef7; stroke:#c3d3ea; }
+    .purple { fill:#eee7f5; stroke:#cfc2e6; }
+    .text-main { font-size:20px; font-weight:600; fill:#333; text-anchor:middle; }
+    .text-sub { font-size:16px; fill:#555; text-anchor:middle; }
+    .arrow { stroke:#888; stroke-width:1.5; marker-end:url(#arrowhead); }
+    .step { font-size:14px; fill:#555; }
+  </style>
+
+  <!-- Arrow definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#888"/>
+    </marker>
+  </defs>
+
+  <!-- STEP 01 -->
+  <rect x="200" y="30" width="400" height="90" class="box"/>
+  <text x="400" y="65" class="text-main">Drought identification</text>
+  <text x="400" y="95" class="text-sub">SPI-3 from monsoon precipitation, 1980–2020</text>
+
+  <!-- Arrow -->
+  <line x1="400" y1="120" x2="400" y2="160" class="arrow"/>
+
+  <!-- STEP 02 -->
+  <rect x="120" y="160" width="240" height="90" class="box green"/>
+  <text x="240" y="195" class="text-main">Peri-urban site</text>
+  <text x="240" y="225" class="text-sub">TU campus grassland, 1345 m</text>
+
+  <rect x="440" y="160" width="240" height="90" class="box green"/>
+  <text x="560" y="195" class="text-main">Rural site</text>
+  <text x="560" y="225" class="text-sub">Changunarayan grassland, 1355 m</text>
+
+  <!-- Arrow -->
+  <line x1="400" y1="250" x2="400" y2="300" class="arrow"/>
+
+  <!-- STEP 03 -->
+  <rect x="100" y="300" width="600" height="180" class="box blue"/>
+  <text x="400" y="335" class="text-main">Remote sensing inputs</text>
+  <text x="400" y="365" class="text-sub">Monsoon season means, 2000–2022</text>
+
+  <!-- Inner boxes -->
+  <rect x="130" y="390" width="120" height="70" class="box blue"/>
+  <text x="190" y="420" class="text-main">LST</text>
+  <text x="190" y="445" class="text-sub">MODIS, 1 km</text>
+
+  <rect x="270" y="390" width="120" height="70" class="box blue"/>
+  <text x="330" y="420" class="text-main">NDVI</text>
+  <text x="330" y="445" class="text-sub">MODIS, 1 km</text>
+
+  <rect x="410" y="390" width="140" height="70" class="box blue"/>
+  <text x="480" y="420" class="text-main">Soil moisture</text>
+  <text x="480" y="445" class="text-sub">ERA5-Land, ~9 km</text>
+
+  <rect x="570" y="390" width="110" height="70" class="box blue"/>
+  <text x="625" y="420" class="text-main">ET0</text>
+  <text x="625" y="445" class="text-sub">TerraClimate, 4 km</text>
+
+  <!-- Arrow -->
+  <line x1="400" y1="480" x2="400" y2="540" class="arrow"/>
+
+  <!-- STEP 04 -->
+  <rect x="200" y="540" width="400" height="110" class="box purple"/>
+  <text x="400" y="580" class="text-main">Comparative analysis</text>
+  <text x="400" y="610" class="text-sub">dLST, dNDVI, dSM, and dET0</text>
+  <text x="400" y="635" class="text-sub">Drought vs. non-drought and peri-urban vs. rural</text>
+
+</svg>
