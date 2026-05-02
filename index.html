@@ -1,426 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EGU 2026 Presentation | Monsoon Drought and Urban Heat</title>
-<style>
-  :root {
-    --bg: #f7f4ee;
-    --surface: #ffffff;
-    --ink: #1f2523;
-    --muted: #65706b;
-    --line: #d7d2c8;
-    --green: #1f7a5c;
-    --blue: #2563a8;
-    --ochre: #9a6a18;
-    --soft-green: #e9f3ee;
-    --soft-blue: #eaf1f9;
-    --soft-ochre: #f5ecd9;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    margin: 0;
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.6;
-  }
-
-  a {
-    color: var(--blue);
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  header {
-    background: #f3efe6;
-    border-bottom: 1px solid var(--line);
-  }
-
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 14px 22px;
-  }
-
-  .brand {
-    font-weight: 800;
-    letter-spacing: 0;
-    color: var(--ink);
-  }
-
-  .nav-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: flex-end;
-  }
-
-  .nav-links a {
-    color: var(--muted);
-    font-size: 0.92rem;
-    padding: 6px 9px;
-  }
-
-  .hero {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 48px 22px 34px;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
-    gap: 34px;
-    align-items: center;
-  }
-
-  .eyebrow {
-    color: var(--green);
-    font-weight: 750;
-    text-transform: uppercase;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    margin: 0 0 10px;
-  }
-
-  h1 {
-    margin: 0;
-    font-size: clamp(2rem, 5vw, 4.2rem);
-    line-height: 1.02;
-    letter-spacing: 0;
-    max-width: 820px;
-  }
-
-  .lead {
-    color: var(--muted);
-    max-width: 760px;
-    font-size: 1.08rem;
-    margin: 18px 0 0;
-  }
-
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 24px;
-  }
-
-  .button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 42px;
-    padding: 9px 14px;
-    border: 1px solid var(--line);
-    background: var(--surface);
-    color: var(--ink);
-    font-weight: 700;
-    border-radius: 6px;
-  }
-
-  .button.primary {
-    background: var(--green);
-    border-color: var(--green);
-    color: #ffffff;
-  }
-
-  .poster-preview {
-    overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--surface);
-  }
-
-  .poster-preview img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  main {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 0 22px 56px;
-  }
-
-  section {
-    padding: 36px 0;
-    border-top: 1px solid var(--line);
-  }
-
-  h2 {
-    margin: 0 0 16px;
-    font-size: clamp(1.35rem, 3vw, 2.05rem);
-    line-height: 1.15;
-    letter-spacing: 0;
-  }
-
-  h3 {
-    margin: 0 0 8px;
-    font-size: 1rem;
-  }
-
-  p {
-    margin: 0 0 14px;
-  }
-
-  .section-grid {
-    display: grid;
-    grid-template-columns: 280px minmax(0, 1fr);
-    gap: 34px;
-  }
-
-  .section-label {
-    color: var(--muted);
-    font-weight: 750;
-  }
-
-  .content {
-    max-width: 820px;
-  }
-
-  .facts {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: 18px;
-  }
-
-  .fact,
-  .resource {
-    border: 1px solid var(--line);
-    background: var(--surface);
-    border-radius: 8px;
-    padding: 16px;
-  }
-
-  .fact strong {
-    display: block;
-    font-size: 1.2rem;
-    color: var(--green);
-    margin-bottom: 4px;
-  }
-
-  .visual {
-    border: 1px solid var(--line);
-    background: var(--surface);
-    border-radius: 8px;
-    padding: 14px;
-    margin-top: 18px;
-  }
-
-  .visual img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .result-links,
-  .resources {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: 18px;
-  }
-
-  .result-link {
-    display: block;
-    border-radius: 8px;
-    border: 1px solid var(--line);
-    padding: 16px;
-    background: var(--soft-blue);
-    color: var(--ink);
-  }
-
-  .result-link:nth-child(2) {
-    background: var(--soft-green);
-  }
-
-  .result-link strong,
-  .resource strong {
-    display: block;
-    margin-bottom: 6px;
-  }
-
-  .discussion-list,
-  .policy-list {
-    padding-left: 20px;
-    margin: 14px 0 0;
-  }
-
-  .discussion-list li,
-  .policy-list li {
-    margin-bottom: 9px;
-  }
-
-  footer {
-    border-top: 1px solid var(--line);
-    color: var(--muted);
-    padding: 22px;
-    text-align: center;
-  }
-
-  @media (max-width: 860px) {
-    nav {
-      align-items: flex-start;
-      flex-direction: column;
-    }
-
-    .nav-links {
-      justify-content: flex-start;
-    }
-
-    .hero,
-    .section-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .hero {
-      padding-top: 34px;
-    }
-
-    .facts,
-    .result-links,
-    .resources {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EGU 2026 | Peri-urban Heat & Monsoon Drought</title>
+  <style>
+    :root { --primary: #0a3d62; --accent: #e55039; --bg: #f8f9fa; --text: #2d3436; --light: #dfe6e9; }
+    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); margin: 0; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    header { background: var(--primary); color: white; padding: 3.5rem 1.5rem; text-align: center; }
+    header h1 { font-size: 2.2rem; margin: 0 0 0.5rem; font-weight: 700; line-height: 1.3; }
+    header .meta { font-size: 0.95rem; opacity: 0.9; margin-bottom: 1rem; }
+    header .egu-code { background: var(--accent); color: white; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+    nav { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 100; }
+    nav ul { display: flex; justify-content: center; gap: 1.5rem; list-style: none; padding: 0.8rem 0; margin: 0; flex-wrap: wrap; }
+    nav a { text-decoration: none; color: var(--primary); font-weight: 600; font-size: 0.95rem; }
+    nav a:hover { color: var(--accent); }
+    section { background: #fff; margin: 2rem 0; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+    h2 { color: var(--primary); border-bottom: 2px solid var(--light); padding-bottom: 0.5rem; margin-top: 0; }
+    .highlight-box { background: #e8f4f8; border-left: 4px solid var(--primary); padding: 1rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .stat-card { background: #f1f5f9; padding: 1rem; border-radius: 6px; text-align: center; }
+    .stat-card .value { font-size: 1.8rem; font-weight: 700; color: var(--accent); }
+    .stat-card .label { font-size: 0.85rem; color: #555; }
+    .btn { display: inline-block; background: var(--accent); color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 6px; font-weight: 600; margin-top: 1rem; transition: background 0.2s; }
+    .btn:hover { background: #c44536; }
+    ul.data-sources { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0.8rem; list-style: none; padding: 0; margin: 1rem 0; }
+    ul.data-sources li { background: #f8f9fa; padding: 0.6rem 1rem; border-radius: 4px; border: 1px solid #ddd; font-size: 0.9rem; }
+    .download-bar { margin-top: 1rem; padding: 0.8rem; background: #f0f4f8; border-radius: 6px; font-size: 0.9rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .download-bar a { color: var(--primary); text-decoration: none; font-weight: 500; }
+    .download-bar a:hover { text-decoration: underline; }
+    .study-area-figure { margin: 1.5rem 0; border: 1px solid var(--light); border-radius: 8px; overflow: hidden; background: #fff; }
+    .study-area-figure img { display: block; width: 100%; height: auto; }
+    footer { text-align: center; padding: 2rem; color: #666; font-size: 0.9rem; border-top: 1px solid var(--light); margin-top: 3rem; }
+    footer a { color: var(--primary); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 768px) { header h1 { font-size: 1.6rem; } nav ul { gap: 1rem; } section { padding: 1.5rem; } }
+  </style>
 </head>
 <body>
-<header>
-  <nav aria-label="Presentation sections">
-    <a class="brand" href="#top">EGU 2026</a>
-    <div class="nav-links">
-      <a href="#introduction">Introduction</a>
-      <a href="#study-area">Study Area</a>
-      <a href="#methodology">Methodology</a>
-      <a href="#results">Results</a>
-      <a href="#discussion">Discussion</a>
-      <a href="#policy">Policy</a>
+  <header>
+    <div class="container">
+      <h1>Peri-urban heat amplification of monsoon drought impacts on grasslands in the Kathmandu Valley</h1>
+      <div class="meta">
+        <strong>Prasanna Dahal & Suraj Lamichhane</strong> | Tribhuvan University, Institute of Engineering, Civil Engineering, Nepal<br>
+        <span class="egu-code">EGU26-15799</span>
+      </div>
+      <p style="max-width: 850px; margin: 0 auto; opacity: 0.9;">A permanent, open archive of our analysis, interactive dashboard, and policy insights for the EGU General Assembly 2026.</p>
     </div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#study-area">Study Area & Data</a></li>
+      <li><a href="#methodology">Methodology</a></li>
+      <li><a href="#results">Key Results</a></li>
+      <li><a href="#discussion">Discussion</a></li>
+      <li><a href="#policy">Policy Implications</a></li>
+      <li><a href="https://github.com/prarocks/EGU-26" target="_blank">GitHub Repo</a></li>
+    </ul>
   </nav>
 
-  <div class="hero" id="top">
-    <div>
-      <p class="eyebrow">EGU General Assembly 2026 presentation archive</p>
-      <h1>Monsoon Drought, Urban Heat, and Vulnerability in Kathmandu Valley</h1>
-      <p class="lead">A structured public page for the presentation materials, linking the analytical dashboard, methodology flowchart, and policy implications in one place.</p>
-      <div class="hero-actions">
-        <a class="button primary" href="monsoon_drought_analysis_dashboard.html">Open Results Dashboard</a>
-        <a class="button" href="#methodology">View Methodology</a>
+  <main class="container">
+    <section id="introduction">
+      <h2>01 / Introduction</h2>
+      <p>Rapid urbanization in the Kathmandu Valley has intensified local warming, creating persistent peri-urban heat islands. Yet, how this baseline warming interacts with <strong>monsoon droughts</strong> to stress grassland ecosystems remains poorly quantified.</p>
+      <div class="highlight-box">
+        <strong>Research Aim:</strong> Quantify how monsoon droughts modulate thermal, vegetation, and moisture contrasts between peri-urban and rural grasslands (2000–2022), isolating climate-driven impacts by excluding irrigated agricultural zones.
       </div>
-    </div>
-    <figure class="poster-preview" aria-label="EGU presentation preview image">
-      <img src="methodology_flowchart_poster.svg" alt="Methodology flowchart for drought, heat, and vulnerability analysis">
-    </figure>
-  </div>
-</header>
+      <p><strong>Why it matters:</strong> Drought is a recurring planning stressor, not just a rainfall anomaly. Understanding peri-urban vulnerability helps target green infrastructure, water management, and thermal mitigation in rapidly growing South Asian cities.</p>
+    </section>
 
-<main>
-  <section id="introduction">
-    <div class="section-grid">
-      <div class="section-label">01 / Introduction</div>
-      <div class="content">
-        <h2>Why monsoon drought matters for growing cities</h2>
-        <p>This presentation organizes the analysis of monsoon-season drought conditions and their relationship with urban heat exposure in Kathmandu Valley. The work connects hydroclimatic drought indicators, urban expansion, and settlement-level vulnerability to support clearer planning decisions.</p>
-        <p>The page is designed as a permanent, shareable web archive for the EGU presentation so collaborators, reviewers, and interested readers can access the figures and interactive outputs directly from GitHub.</p>
-        <div class="facts">
-          <div class="fact"><strong>1980-2020</strong>Monsoon precipitation analysis period</div>
-          <div class="fact"><strong>SPI-3</strong>Drought identification metric</div>
-          <div class="fact"><strong>Kathmandu Valley</strong>Urban climate risk focus</div>
+    <section id="study-area">
+      <h2>02 / Study Area & Data Sources</h2>
+      <p>We compare two carefully selected grassland sites to isolate urbanization effects from confounding land-use factors:</p>
+      <ul style="columns: 2; margin: 1rem 0;">
+        <li><strong>Peri-urban:</strong> Tribhuvan University premises (proximity to urban core, transitional land cover)</li>
+        <li><strong>Rural:</strong> Changunarayan, Bhaktapur (minimal urban influence, comparable elevation & climate)</li>
+      </ul>
+      <figure class="study-area-figure">
+        <img src="egu26.png" alt="Study area figure for the EGU 2026 presentation">
+      </figure>
+      <h3>Data & Variables (JJASO Monsoon Season, 2000–2022)</h3>
+      <ul class="data-sources">
+        <li>🌡️ <strong>LST:</strong> MODIS Terra (MOD11A2), 1 km</li>
+        <li>🌿 <strong>NDVI:</strong> MODIS Terra (MOD13Q1), 250 m</li>
+        <li>💧 <strong>Soil Moisture:</strong> ERA5-Land (0–7 cm), 0.1°</li>
+        <li>📉 <strong>ET₀/PET:</strong> TerraClimate, 4 km</li>
+        <li>🌧️ <strong>Precipitation & SPI-3:</strong> DHM records (1980–2020 baseline)</li>
+      </ul>
+      <div class="download-bar">
+        📥 <a href="Shape_file.zip" download>Shapefile Package</a> | 
+        <a href="EGU26.qgz" download>QGIS Project</a> | 
+        <a href="EGU_Poster_Final (1)_updated.pptx" download>Poster Source (PPTX)</a>
+      </div>
+    </section>
+
+    <section id="methodology">
+      <h2>03 / Methodology</h2>
+      <p>Our workflow integrates meteorological drought identification with remote sensing land-surface analysis:</p>
+      <ol style="margin-left: 1.5rem;">
+        <li><strong>Drought Classification:</strong> Monsoon-mean SPI-3 derived from 1980–2020 precipitation. Drought years = negative monsoon SPI values.</li>
+        <li><strong>Seasonal Aggregation:</strong> All variables averaged over the JJASO (June–October) monsoon window for 2000–2022.</li>
+        <li><strong>Comparative Analysis:</strong> Peri-urban vs. rural contrasts computed for LST, NDVI, soil moisture, and ET₀. Anomalies and percent differences calculated for drought vs. non-drought subsets.</li>
+        <li><strong>Ecological Stress Mapping:</strong> NDVI declines coupled with soil moisture depletion and elevated evaporative demand to quantify vulnerability amplification.</li>
+      </ol>
+    </section>
+
+    <section id="results">
+      <h2>04 / Key Results</h2>
+      <p>Monsoon droughts reshape thermal and ecological gradients across the urban-rural continuum:</p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="value">+0.94°C</div>
+          <div class="label">Avg. peri-urban heat penalty</div>
+        </div>
+        <div class="stat-card">
+          <div class="value">1.15°C → 0.50°C</div>
+          <div class="label">Thermal gap (non-drought → drought)</div>
+        </div>
+        <div class="stat-card">
+          <div class="value">~4% lower</div>
+          <div class="label">NDVI decline in peri-urban during drought</div>
+        </div>
+        <div class="stat-card">
+          <div class="value">1.12% drier</div>
+          <div class="label">Peri-urban soil moisture during drought</div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section id="study-area">
-    <div class="section-grid">
-      <div class="section-label">02 / Study Area</div>
-      <div class="content">
-        <h2>Kathmandu Valley as the urban risk landscape</h2>
-        <p>The study area centers on Kathmandu Valley, where dense urban growth, changing land cover, and climate variability intersect. GIS resources and poster source files can be stored alongside this site in the repository so the presentation remains reproducible and easy to share.</p>
+      <div class="highlight-box">
+        <strong>Thermal Convergence vs. Ecological Divergence:</strong> While drought narrows the urban-rural temperature gap (rural areas warm sharply due to soil moisture loss and reduced evaporative cooling), peri-urban grasslands experience disproportionately higher vegetation stress and evaporative demand (+23.6 mm avg ET₀ difference; +2.66% higher ET₀ during droughts).
       </div>
-    </div>
-  </section>
+      <a href="monsoon_drought_analysis_dashboard.html" class="btn">🔍 Explore Interactive Dashboard</a>
+      <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #555;">Time series, anomaly plots, and statistical comparisons are fully interactive. Hover for tooltips, toggle layers, and export figures.</p>
+    </section>
 
-  <section id="methodology">
-    <div class="section-grid">
-      <div class="section-label">03 / Methodology Adopted</div>
-      <div class="content">
-        <h2>Workflow from drought identification to vulnerability synthesis</h2>
-        <p>The methodology follows a stepwise workflow: identify monsoon drought using precipitation-derived SPI-3, connect drought years with urban heat and land-surface signals, and synthesize the results for risk interpretation.</p>
-        <div class="visual">
-          <img src="methodology_flowchart_poster.svg" alt="Methodology flowchart for drought, heat, and vulnerability analysis">
-        </div>
+    <section id="discussion">
+      <h2>05 / Discussion</h2>
+      <p>Our findings challenge the assumption that reduced urban-rural temperature contrast during droughts implies lower risk. Instead:</p>
+      <ul>
+        <li><strong>Latent vulnerability:</strong> Persistent background heating in peri-urban zones creates a "compounding stress" effect, where grasslands face elevated ecological pressure even under similar meteorological drought conditions.</li>
+        <li><strong>Indicator sensitivity:</strong> Soil moisture and NDVI respond more sharply than LST during dry monsoons, making them critical early-warning metrics for peri-urban land managers.</li>
+        <li><strong>Methodological value:</strong> Dashboard-driven presentation enables real-time inspection, reproducibility, and iterative updates beyond the static poster format.</li>
+      </ul>
+    </section>
+
+    <section id="policy">
+      <h2>06 / Policy & Planning Implications</h2>
+      <p>Translating science into actionable urban climate resilience:</p>
+      <ul style="list-style: none; padding: 0;">
+        <li>✅ <strong>Integrate drought-heat metrics</strong> into municipal water-security and heat-risk planning frameworks.</li>
+        <li>✅ <strong>Prioritize peri-urban greening</strong> with drought-resilient native species and soil moisture retention strategies.</li>
+        <li>✅ <strong>Protect transitional landscapes</strong> from unregulated conversion, as they serve as critical thermal and ecological buffers.</li>
+        <li>✅ <strong>Adopt living dashboards</strong> as decision-support tools for local agencies, enabling dynamic monitoring and adaptive management.</li>
+      </ul>
+      <div class="highlight-box" style="background: #f8f0e3; border-left-color: #e55039;">
+        <strong>For Kathmandu & similar Himalayan cities:</strong> Peri-urban zones are not just transition areas—they are frontline ecosystems requiring targeted climate adaptation investment.
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <section id="results">
-    <div class="section-grid">
-      <div class="section-label">04 / Results</div>
-      <div class="content">
-        <h2>Interactive dashboards and analytical outputs</h2>
-        <p>The main results dashboard presents the monsoon drought analysis in an interactive HTML format.</p>
-        <div class="result-links">
-          <a class="result-link" href="monsoon_drought_analysis_dashboard.html"><strong>Monsoon Drought Analysis Dashboard</strong>Open the primary results page.</a>
-          <a class="result-link" href="https://github.com/prarocks/EGU-26"><strong>GitHub Repository</strong>View and manage the presentation archive.</a>
-        </div>
-      </div>
+  <footer>
+    <div class="container">
+      <p>📊 <a href="monsoon_drought_analysis_dashboard.html">Interactive Dashboard</a> | 💻 <a href="https://github.com/prarocks/EGU-26">GitHub Repository</a> | 📧 Contact: <a href="077bce103.prasanna@pcampus.edu.np">077bce103.prasanna@pcampus.edu.np</a></p>
+      <p><small>© 2026 Prasanna Dahal & Suraj Lamichhane | Distributed under CC BY 4.0 | EGU General Assembly 2026</small></p>
     </div>
-  </section>
-
-  <section id="discussion">
-    <div class="section-grid">
-      <div class="section-label">05 / Discussion</div>
-      <div class="content">
-        <h2>Interpreting drought-heat relationships in an urbanizing valley</h2>
-        <p>The discussion links the analytical findings with the broader urban climate context. The key interpretation is that monsoon drought should not be treated only as a rainfall anomaly; in dense and expanding urban landscapes it can amplify heat exposure, water stress, and uneven vulnerability.</p>
-        <ul class="discussion-list">
-          <li>Drought years provide a useful lens for comparing climate stress with urban land-surface response.</li>
-          <li>Spatial patterns help identify where planning, green infrastructure, and water management interventions may be most urgent.</li>
-          <li>Dashboard-based presentation makes the analysis easier to inspect, update, and share beyond the conference poster.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="policy">
-    <div class="section-grid">
-      <div class="section-label">06 / Policy Implementations</div>
-      <div class="content">
-        <h2>Planning responses for heat and drought resilience</h2>
-        <p>Policy implementation should connect drought monitoring with urban planning decisions, especially where rapid land-cover change increases surface heat exposure and water stress.</p>
-        <ul class="policy-list">
-          <li>Integrate drought indicators into municipal heat-risk and water-security planning.</li>
-          <li>Prioritize urban greening, permeable surfaces, and open-space protection in high-exposure neighborhoods.</li>
-          <li>Use spatial dashboards as living decision-support tools for agencies, researchers, and local planners.</li>
-        </ul>
-        <div class="visual">
-          <img src="policy_implications.svg" alt="Policy implications for managing urban heat and drought risk">
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <p>Presentation materials for EGU 2026. Hosted from the GitHub repository <a href="https://github.com/prarocks/EGU-26">prarocks/EGU-26</a>.</p>
-</footer>
+  </footer>
 </body>
 </html>
