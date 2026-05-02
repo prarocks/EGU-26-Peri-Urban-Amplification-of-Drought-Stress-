@@ -83,6 +83,7 @@
   .tab-btn { background: none; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 6px 14px; font-size: 13px; color: var(--color-text-secondary); cursor: pointer; transition: all 0.15s; }
   .tab-btn.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); }
   .metric-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 12px 16px; }
+  .takeaway-strip { margin: -4px 0 1rem; padding: 8px 12px; border-left: 3px solid #D85A30; background: rgba(216, 90, 48, 0.08); color: var(--color-text-primary); font-size: 12px; line-height: 1.45; }
   .badge { font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
   .badge-sig { background: #EAF3DE; color: #3B6D11; }
   .badge-ns { background: #F1EFE8; color: #5F5E5A; }
@@ -98,7 +99,7 @@
   <header class="page-header">
     <p class="eyebrow">EGU 2026 Presentation</p>
     <h1>Peri-Urban Amplification of Drought Stress</h1>
-    <p class="subtitle">Interactive dashboard for monsoon-season land surface temperature, vegetation, Potential-Evapotranspiration, and urban heat gap patterns across urban, peri-urban, and rural zones.</p>
+    <p class="subtitle">Interactive dashboard for monsoon-season land surface temperature, vegetation, evapotranspiration, and urban heat gap patterns across urban, peri-urban, and rural zones.</p>
   </header>
 
   <section class="dashboard-shell">
@@ -106,7 +107,7 @@
   <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem;">
     <button class="tab-btn active" onclick="showTab('lst')">Land surface temp</button>
     <button class="tab-btn" onclick="showTab('ndvi')">NDVI (vegetation)</button>
-    <button class="tab-btn" onclick="showTab('et0')">Potential-Evapotranspiration</button>
+    <button class="tab-btn" onclick="showTab('et0')">Evapotranspiration</button>
     <button class="tab-btn" onclick="showTab('stats')">Statistical tests</button>
     <button class="tab-btn" onclick="showTab('diff')">Urban heat gap</button>
   </div>
@@ -129,6 +130,7 @@
         <div style="font-size: 11px; color: var(--color-text-secondary); margin-top: 2px;">+0.067°C/yr trend ↑</div>
       </div>
     </div>
+    <div class="takeaway-strip">Takeaway: LST spikes align with drought years &rarr; thermal amplification</div>
     <div style="position: relative; width: 100%; height: 280px;">
       <canvas id="lstChart" role="img" aria-label="Line chart of monsoon mean land surface temperature 2000-2022 for Urban, Peri-urban and Rural locations">LST time series for three zones.</canvas>
     </div>
@@ -152,6 +154,7 @@
         <div style="font-size: 11px; color: var(--color-text-secondary); margin-top: 2px;">−0.0037/yr trend ↓</div>
       </div>
     </div>
+    <div class="takeaway-strip">Takeaway: Vegetation declines during drought &rarr; stress response</div>
     <div style="position: relative; width: 100%; height: 280px;">
       <canvas id="ndviChart" role="img" aria-label="Line chart of monsoon mean NDVI 2000-2022 for Urban, Peri-urban and Rural">NDVI time series for three zones.</canvas>
     </div>
@@ -175,6 +178,7 @@
         <div style="font-size: 11px; color: var(--color-text-secondary); margin-top: 2px;">No significant trend</div>
       </div>
     </div>
+    <div class="takeaway-strip">Takeaway: ET<sub>0</sub> relatively stable &rarr; atmospheric demand dominates</div>
     <div style="position: relative; width: 100%; height: 280px;">
       <canvas id="et0Chart" role="img" aria-label="Line chart of monsoon mean ET0 2000-2022 for Urban, Peri-urban and Rural">ET0 time series.</canvas>
     </div>
@@ -254,7 +258,11 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 <script>
+const annotationPlugin = window['chartjs-plugin-annotation'] || window.ChartAnnotation;
+if (annotationPlugin) Chart.register(annotationPlugin);
+
 const years = [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022];
 
 const data = {
@@ -342,6 +350,125 @@ function showTab(name) {
 }
 
 window.addEventListener('load', () => { mkLine('lstChart','lst','LST (°C)'); chartsBuilt.lst = true; });
+const annotatedTakeaways = {
+  lst: 'Takeaway: LST spikes align with drought years \u2192 thermal amplification',
+  ndvi: 'Takeaway: Vegetation declines during drought \u2192 stress response',
+  et0: 'Takeaway: ET\u2080 relatively stable \u2192 atmospheric demand dominates'
+};
+
+const droughtYears = [2005, 2007, 2008, 2009, 2012, 2017, 2020];
+
+function droughtBoxes() {
+  return droughtYears.map(y => ({
+    type: 'box',
+    xMin: years.indexOf(y) - 0.5,
+    xMax: years.indexOf(y) + 0.5,
+    backgroundColor: 'rgba(200, 80, 60, 0.08)',
+    borderWidth: 0
+  }));
+}
+
+function takeawayLabel(text) {
+  return {
+    type: 'label',
+    xValue: years.indexOf(2001),
+    yValue: context => context.chart.scales.y.max,
+    content: [text],
+    font: { size: 11 },
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    color: '#333',
+    padding: 6,
+    textAlign: 'left'
+  };
+}
+
+const annotatedBaseOpts = (yLabel, takeawayText) => ({
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: { display: false },
+    annotation: {
+      annotations: droughtBoxes()
+    }
+  },
+  scales: {
+    x: {
+      ticks: { font: { size: 11 }, autoSkip: true, maxTicksLimit: 12, color: '#888780' },
+      grid: { color: 'rgba(136,135,128,0.12)' }
+    },
+    y: {
+      title: { display: true, text: yLabel, font: { size: 11 }, color: '#888780' },
+      ticks: { font: { size: 11 }, color: '#888780' },
+      grid: { color: 'rgba(136,135,128,0.12)' }
+    }
+  }
+});
+
+function mkLine(id, variable, yLabel, takeaway) {
+  new Chart(document.getElementById(id), {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [
+        { label: 'Urban', data: data[variable].Urban, borderColor: '#D85A30', borderWidth: 2, pointRadius: 2, tension: 0.3 },
+        { label: 'Peri-urban', data: data[variable].Periurban, borderColor: '#378ADD', borderWidth: 2, pointRadius: 2, tension: 0.3, borderDash: [5,3] },
+        { label: 'Rural', data: data[variable].Rural, borderColor: '#639922', borderWidth: 2, pointRadius: 2, tension: 0.3, borderDash: [2,2] }
+      ]
+    },
+    options: annotatedBaseOpts(yLabel, takeaway || annotatedTakeaways[variable])
+  });
+}
+
+function mkDiff() {
+  new Chart(document.getElementById('diffChart'), {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: [{
+        data: diff,
+        backgroundColor: diff.map(v => v >= 0 ? 'rgba(215,90,48,0.65)' : 'rgba(55,138,221,0.55)')
+      }]
+    },
+    options: {
+      ...annotatedBaseOpts('\u0394T peri-urban \u2212 rural (\u00b0C)',
+        'Takeaway: Peri-urban zones consistently warmer \u2192 amplification signal'),
+      plugins: {
+        legend: { display: false },
+        annotation: { annotations: droughtBoxes() }
+      }
+    }
+  });
+}
+
+function showTab(name) {
+  ['lst','ndvi','et0','stats','diff'].forEach(t => {
+    document.getElementById('tab-'+t).style.display = t === name ? '' : 'none';
+    document.querySelectorAll('.tab-btn').forEach((b,i) => {
+      if (['lst','ndvi','et0','stats','diff'][i] === name) b.classList.add('active');
+      else b.classList.remove('active');
+    });
+  });
+
+  if (name === 'lst' && !chartsBuilt.lst) {
+    mkLine('lstChart','lst','LST (\u00b0C)', annotatedTakeaways.lst);
+    chartsBuilt.lst = true;
+  }
+
+  if (name === 'ndvi' && !chartsBuilt.ndvi) {
+    mkLine('ndviChart','ndvi','NDVI', annotatedTakeaways.ndvi);
+    chartsBuilt.ndvi = true;
+  }
+
+  if (name === 'et0' && !chartsBuilt.et0) {
+    mkLine('et0Chart','et0','ET\u2080 (mm)', annotatedTakeaways.et0);
+    chartsBuilt.et0 = true;
+  }
+
+  if (name === 'diff' && !chartsBuilt.diff) {
+    mkDiff();
+    chartsBuilt.diff = true;
+  }
+}
 </script>
   </section>
 </main>
