@@ -83,6 +83,8 @@
   .tab-btn { background: none; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 6px 14px; font-size: 13px; color: var(--color-text-secondary); cursor: pointer; transition: all 0.15s; }
   .tab-btn.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); }
   .metric-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 12px 16px; }
+  .tab-description { margin: 0 0 1rem; padding: 12px 14px; border: 1px solid rgba(185, 178, 166, 0.55); border-radius: var(--border-radius-md); background: rgba(255, 255, 255, 0.72); color: var(--color-text-secondary); font-size: 13px; line-height: 1.65; }
+  .intro-panel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 1rem; }
   .takeaway-strip { margin: -4px 0 1rem; padding: 8px 12px; border-left: 3px solid #D85A30; background: rgba(216, 90, 48, 0.08); color: var(--color-text-primary); font-size: 12px; line-height: 1.45; }
   .badge { font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
   .badge-sig { background: #EAF3DE; color: #3B6D11; }
@@ -90,6 +92,9 @@
   @media (prefers-color-scheme: dark) {
     .badge-sig { background: #27500A; color: #C0DD97; }
     .badge-ns { background: #2C2C2A; color: #B4B2A9; }
+  }
+  @media (max-width: 760px) {
+    .intro-panel { grid-template-columns: 1fr; }
   }
 </style>
 
@@ -105,14 +110,41 @@
   <section class="dashboard-shell">
 <div style="padding: 0.5rem 0 1rem;">
   <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem;">
-    <button class="tab-btn active" onclick="showTab('lst')">Land surface temp</button>
+    <button class="tab-btn active" onclick="showTab('main')">Main dashboard</button>
+    <button class="tab-btn" onclick="showTab('lst')">Land surface temp</button>
     <button class="tab-btn" onclick="showTab('ndvi')">NDVI (vegetation)</button>
     <button class="tab-btn" onclick="showTab('et0')">Evapotranspiration</button>
     <button class="tab-btn" onclick="showTab('stats')">Statistical tests</button>
     <button class="tab-btn" onclick="showTab('diff')">Urban heat gap</button>
   </div>
 
-  <div id="tab-lst">
+  <div id="tab-main">
+    <div class="tab-description">
+      This interactive dashboard examines how rapid urbanization in Kathmandu Valley interacts with monsoon drought to amplify ecological stress in peri-urban grasslands. Analyzing 23 years (2000-2022) of MODIS LST/NDVI, ERA5-Land soil moisture, and TerraClimate ET<sub>0</sub> data, we identify a persistent peri-urban heat penalty (+1.01&deg;C), elevated evaporative demand (+23.6 mm), and amplified vegetation stress (~4% greater NDVI decline) during droughts. These findings reveal that peri-urban ecosystems&mdash;occupying the critical transition between urban heat islands and rural cool refuges&mdash;face compound climate-urbanization risks that require targeted land management and thermal mitigation strategies.
+    </div>
+    <div class="intro-panel">
+      <div class="metric-card">
+        <div style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px;">Study period</div>
+        <div style="font-size: 22px; font-weight: 500; color: var(--color-text-primary);">2000-2022</div>
+        <div style="font-size: 11px; color: var(--color-text-secondary); margin-top: 2px;">Monsoon season: June-October</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px;">Peri-urban heat penalty</div>
+        <div style="font-size: 22px; font-weight: 500; color: var(--color-text-primary);">+1.01&deg;C</div>
+        <div style="font-size: 11px; color: var(--color-text-secondary); margin-top: 2px;">Relative to rural grasslands</div>
+      </div>
+      <div class="metric-card">
+        <div style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px;">Evaporative demand gap</div>
+        <div style="font-size: 22px; font-weight: 500; color: var(--color-text-primary);">+23.6 mm</div>
+        <div style="font-size: 11px; color: var(--color-text-secondary); margin-top: 2px;">Peri-urban vs rural ET<sub>0</sub></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-lst" style="display:none;">
+    <div class="tab-description">
+      Monsoon-season (June-October) Land Surface Temperature (LST) trends from 2000-2022 across urban, peri-urban, and rural grasslands in Kathmandu Valley. All zones show significant warming trends (p&lt;0.01), with urban areas warming fastest (+0.107&deg;C/year). Drought years (shaded, SPI &lt; -0.75) correspond to LST spikes, particularly pronounced in peri-urban areas. The peri-urban zone maintains a persistent +1.01&deg;C heat penalty relative to rural areas, demonstrating baseline urban heat island effects that amplify during climate extremes.
+    </div>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1rem;">
       <div class="metric-card">
         <div style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px;">Urban avg LST</div>
@@ -137,6 +169,9 @@
   </div>
 
   <div id="tab-ndvi" style="display:none;">
+    <div class="tab-description">
+      Normalized Difference Vegetation Index (NDVI) trajectories reveal differential vegetation stress responses across the urban-rural gradient. All zones exhibit declining trends (p&lt;0.001), with urban areas showing the steepest degradation (-0.0066/year). During drought years, peri-urban grasslands experience ~4% greater NDVI decline compared to rural areas, despite partial thermal convergence. This amplified vegetation stress in peri-urban zones reflects compounded impacts of baseline warming and elevated evaporative demand, even when meteorological drought conditions are similar.
+    </div>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1rem;">
       <div class="metric-card">
         <div style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px;">Urban avg NDVI</div>
@@ -161,6 +196,9 @@
   </div>
 
   <div id="tab-et0" style="display:none;">
+    <div class="tab-description">
+      Reference evapotranspiration (ET<sub>0</sub>) patterns show a consistent +23.6 mm average difference between peri-urban and rural grasslands, with peri-urban ET<sub>0</sub> elevated by 2.66% during drought episodes. Unlike LST and NDVI, ET<sub>0</sub> shows no significant temporal trends (p&gt;0.05), indicating that atmospheric demand dominates over temporal variability. The persistent ET<sub>0</sub> gap reflects peri-urban microclimatic conditions&mdash;higher temperatures, reduced humidity, and altered wind patterns&mdash;that increase water demand and contribute to vegetation stress independent of precipitation deficits.
+    </div>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1rem;">
       <div class="metric-card">
         <div style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px;">Urban avg ET₀</div>
@@ -185,6 +223,9 @@
   </div>
 
   <div id="tab-stats" style="display:none;">
+    <div class="tab-description">
+      Non-parametric statistical analysis validates observed patterns using Mann-Kendall trend tests (&alpha;=0.05) and Mann-Whitney U tests comparing peri-urban versus rural zones. LST, NDVI, and ET<sub>0</sub> all show statistically significant differences between peri-urban and rural areas (p&lt;0.05), confirming that urbanization creates distinct microclimatic and ecological regimes. Notably, soil moisture shows no significant difference (p=0.23), justifying its exclusion from primary analysis and indicating that peri-urban ecological stress is driven more by atmospheric demand (ET<sub>0</sub>) and temperature than by soil water availability alone.
+    </div>
     <div style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 12px;">Mann-Kendall trend test (α = 0.05) + Mann-Whitney U test comparing Peri-urban vs Rural</div>
     <table style="width: 100%; font-size: 13px; border-collapse: collapse;">
       <thead>
@@ -233,6 +274,9 @@
   </div>
 
   <div id="tab-diff" style="display:none;">
+    <div class="tab-description">
+      The peri-urban to rural LST gap quantifies the urban heat island intensity across the study period. The mean gap of +1.01&deg;C (&sigma;=0.77&deg;C) exhibits high interannual variability, ranging from -1.22&deg;C (2007) to +2.00&deg;C (2021). This variability reflects the interaction between baseline urbanization effects and monsoon drought dynamics. During severe droughts, rural evaporative cooling collapses, causing thermal convergence (gap narrows to ~0.35&deg;C). However, this convergence masks continued peri-urban vulnerability through elevated ET<sub>0</sub> demand and vegetation stress, demonstrating that thermal metrics alone underestimate ecological impacts in transitional landscapes.
+    </div>
     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 1rem;">
       <div class="metric-card">
         <div style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px;">Mean PU−Rural LST gap</div>
@@ -336,10 +380,10 @@ function mkDiff() {
 
 let chartsBuilt = { lst: false, ndvi: false, et0: false, diff: false };
 function showTab(name) {
-  ['lst','ndvi','et0','stats','diff'].forEach(t => {
+  ['main','lst','ndvi','et0','stats','diff'].forEach(t => {
     document.getElementById('tab-'+t).style.display = t === name ? '' : 'none';
     document.querySelectorAll('.tab-btn').forEach((b,i) => {
-      if (['lst','ndvi','et0','stats','diff'][i] === name) b.classList.add('active');
+      if (['main','lst','ndvi','et0','stats','diff'][i] === name) b.classList.add('active');
       else b.classList.remove('active');
     });
   });
@@ -349,7 +393,7 @@ function showTab(name) {
   if (name === 'diff' && !chartsBuilt.diff) { mkDiff(); chartsBuilt.diff = true; }
 }
 
-window.addEventListener('load', () => { mkLine('lstChart','lst','LST (°C)'); chartsBuilt.lst = true; });
+window.addEventListener('load', () => { showTab('main'); });
 const annotatedTakeaways = {
   lst: 'Takeaway: LST spikes align with drought years \u2192 thermal amplification',
   ndvi: 'Takeaway: Vegetation declines during drought \u2192 stress response',
@@ -441,10 +485,10 @@ function mkDiff() {
 }
 
 function showTab(name) {
-  ['lst','ndvi','et0','stats','diff'].forEach(t => {
+  ['main','lst','ndvi','et0','stats','diff'].forEach(t => {
     document.getElementById('tab-'+t).style.display = t === name ? '' : 'none';
     document.querySelectorAll('.tab-btn').forEach((b,i) => {
-      if (['lst','ndvi','et0','stats','diff'][i] === name) b.classList.add('active');
+      if (['main','lst','ndvi','et0','stats','diff'][i] === name) b.classList.add('active');
       else b.classList.remove('active');
     });
   });
